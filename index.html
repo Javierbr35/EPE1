@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prototipo Operativo de Logística - EPE1</title>
+  <!-- Hoja de estilos CSS externa -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Encabezado Principal de la Aplicación -->
+  <header class="main-header">
+    <h1>Sistema de Monitoreo Logístico - Last Mile Ops</h1>
+    <p>Prototipo interactivo para el control y gestión de despachos urbanos</p>
+    
+    <!-- Botón para alternar Modo Oscuro / Claro -->
+    <button id="btn-theme-toggle" class="btn-theme-toggle">
+      🌙 Modo Oscuro
+    </button>
+  </header>
+
+  <!-- Contenedor Principal de Tarjetas (Grid de Interacciones) -->
+  <main class="dashboard-container">
+
+    <!-- ==========================================
+         INTERACCIÓN 01: Actualización de Estado
+         ========================================== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="card-number">01</span>
+        <h2>Estado Operativo Central</h2>
+      </div>
+      <p class="card-description">Haz clic para actualizar la última sincronización del centro logístico.</p>
+      <div class="card-body">
+        <p id="msg-actualizacion" class="status-box">Estado: Esperando confirmación...</p>
+        <button id="btn-actualizar-estado" class="btn btn-primary">Actualizar Sincronización</button>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         INTERACCIÓN 02: Cambio de Estado Visual
+         ========================================== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="card-number">02</span>
+        <h2>Estado de Ruta Express</h2>
+      </div>
+      <p class="card-description">Alterna entre la ruta Activa (Normal) y Bloqueada (Alerta de tráfico).</p>
+      <div class="card-body">
+        <div id="indicador-ruta" class="route-badge badge-active">Ruta 404 - Normal</div>
+        <button id="btn-toggle-ruta" class="btn btn-secondary">Alternar Estado de Ruta</button>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         INTERACCIÓN 03: Contador Operativo
+         ========================================== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="card-number">03</span>
+        <h2>Paquetes Procesados</h2>
+      </div>
+      <p class="card-description">Suma o resta incidencias/paquetes escaneados en el turno.</p>
+      <div class="card-body">
+        <div class="counter-display" id="contador-valor">0</div>
+        <div class="btn-group">
+          <button id="btn-restar" class="btn btn-danger">-1</button>
+          <button id="btn-reset" class="btn btn-neutral">Reiniciar</button>
+          <button id="btn-sumar" class="btn btn-success">+1</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         INTERACCIÓN 04: Mostrar y Ocultar Detalle
+         ========================================== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="card-number">04</span>
+        <h2>Detalles Furgón #12</h2>
+      </div>
+      <p class="card-description">Despliega información técnica adicional de la unidad.</p>
+      <div class="card-body">
+        <button id="btn-toggle-detalle" class="btn btn-primary">Mostrar Detalles</button>
+        <div id="panel-detalle" class="detail-panel hidden">
+          <ul>
+            <li><strong>Conductor:</strong> Juan Pérez</li>
+            <li><strong>Capacidad:</strong> 1.200 kg</li>
+            <li><strong>Patente:</strong> AB-123-CD</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         INTERACCIÓN 05: Vista Previa en Tiempo Real
+         ========================================== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="card-number">05</span>
+        <h2>Vista Previa de Observaciones</h2>
+      </div>
+      <p class="card-description">Escribe una nota para la guía de despacho y revisa la vista previa.</p>
+      <div class="card-body">
+        <textarea id="input-observacion" placeholder="Ingrese notas sobre la entrega..." rows="3"></textarea>
+        <p class="live-preview-label">Vista Previa:</p>
+        <div id="preview-texto" class="preview-box"><em>(Sin observaciones)</em></div>
+        <div class="preview-footer">
+          <span id="char-count">0 caracteres</span>
+          <button id="btn-limpiar-preview" class="btn btn-small btn-neutral">Limpiar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         INTERACCIÓN 06: Selección y Cálculo
+         ========================================== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="card-number">06</span>
+        <h2>Cálculo de Cotización Envío</h2>
+      </div>
+      <p class="card-description">Calcula el costo total según la zona de destino y el peso del paquete.</p>
+      <div class="card-body">
+        <label for="select-zona">Zona de Destino:</label>
+        <select id="select-zona" class="form-control">
+          <option value="1500">Urbana ($1.500/kg)</option>
+          <option value="2500">Periférica ($2.500/kg)</option>
+          <option value="4000">Interurbana ($4.000/kg)</option>
+        </select>
+
+        <label for="input-peso">Peso (kg):</label>
+        <input type="number" id="input-peso" class="form-control" placeholder="Ej: 5" min="1" value="1">
+
+        <button id="btn-calcular-costo" class="btn btn-primary">Calcular Tarifas</button>
+        <p id="resultado-calculo" class="result-text">Total a Cobrar: $1.500</p>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         INTERACCIÓN 07: Rango y Progreso
+         ========================================== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="card-number">07</span>
+        <h2>Nivel de Carga del Vehículo</h2>
+      </div>
+      <p class="card-description">Ajusta el nivel porcentual de capacidad ocupada.</p>
+      <div class="card-body">
+        <input type="range" id="range-carga" min="0" max="100" value="45" class="range-slider">
+        <p class="range-value"><span id="texto-porcentaje">45</span>% Ocupado</p>
+        <div class="progress-bar-container">
+          <div id="barra-progreso" class="progress-bar" style="width: 45%;"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         INTERACCIÓN 08: Creación y Eliminación Dinámica
+         ========================================== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="card-number">08</span>
+        <h2>Lista Dinámica de Tareas</h2>
+      </div>
+      <p class="card-description">Agrega nuevas tareas pendientes y elimínalas al completarse.</p>
+      <div class="card-body">
+        <div class="input-inline">
+          <input type="text" id="input-nueva-tarea" class="form-control" placeholder="Ej: Cargar camión #3">
+          <button id="btn-agregar-tarea" class="btn btn-success">+</button>
+        </div>
+        <ul id="lista-tareas" class="dynamic-list">
+          <!-- Los elementos li se agregarán con JS -->
+        </ul>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         INTERACCIÓN 09: Filtrado de una Colección
+         ========================================== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="card-number">09</span>
+        <h2>Filtro de Guías de Despacho</h2>
+      </div>
+      <p class="card-description">Filtra la lista de envíos según su estado o comuna.</p>
+      <div class="card-body">
+        <input type="text" id="input-filtro" class="form-control" placeholder="Buscar por Comuna o Código...">
+        <ul id="lista-guias" class="filter-list">
+          <li class="guia-item">#GD-101 - Providencia (En Tránsito)</li>
+          <li class="guia-item">#GD-102 - Maipú (Entregado)</li>
+          <li class="guia-item">#GD-103 - Santiago Centro (Pendiente)</li>
+          <li class="guia-item">#GD-104 - Providencia (Entregado)</li>
+          <li class="guia-item">#GD-105 - Ñuñoa (En Tránsito)</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         INTERACCIÓN 10: Formulario y Validación
+         ========================================== -->
+    <article class="card card-wide">
+      <div class="card-header">
+        <span class="card-number">10</span>
+        <h2>Registro de Solicitud de Despacho</h2>
+      </div>
+      <p class="card-description">Formulario para ingresar un nuevo despacho. Cuenta con validación previa.</p>
+      <div class="card-body">
+        <form id="form-despacho" novalidate>
+          <div class="form-group">
+            <label for="cliente-nombre">Nombre Cliente:</label>
+            <input type="text" id="cliente-nombre" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="cliente-direccion">Dirección de Entrega:</label>
+            <input type="text" id="cliente-direccion" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="codigo-paquete">Código de Tracking (min. 5 caract.):</label>
+            <input type="text" id="codigo-paquete" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Registrar Despacho</button>
+        </form>
+        <div id="form-mensaje" class="form-feedback hidden"></div>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="main-footer">
+    <p>&copy; 2026 IPCHILE - Desarrollo Full Stack | EPE1 Prototipo Logístico</p>
+  </footer>
+
+  <!-- Script JS Principal -->
+  <script src="app.js"></script>
+</body>
+</html>
