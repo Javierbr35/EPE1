@@ -1,4 +1,4 @@
-# Prototipo Web de Monitoreo Logístico - Last Mile Ops
+# Prototipo Web de Monitoreo Logístico
 
 Este proyecto es un prototipo interactivo desarrollado para responder a las necesidades operativas de una empresa de logística de última milla. Permite realizar un seguimiento visual e interactivo de los despachos directamente desde el navegador web.
 
