@@ -23,7 +23,7 @@ Este proyecto es un prototipo interactivo desarrollado para responder a las nece
 9. **Filtrado de Colección:** Búsqueda en tiempo real de guías de despacho.
 10. **Formulario y Validación:** Registro de envíos previniendo recarga mediante `preventDefault()`.
 
-## 🛠️ Guía de Pasos Git / GitHub para Estudiantes
+## 🛠️ Guía de Pasos Git / GitHub
 
 Para cumplir con el puntaje completo en el control de versiones (Ramas, PR y GitHub Pages):
 
